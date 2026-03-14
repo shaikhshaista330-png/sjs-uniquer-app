@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SJS Professional Salon</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState } = React;
+
+        function SJSSalonApp() {
+            const [view, setView] = useState('landing');
+            const [isBlocked, setIsBlocked] = useState(false);
+
+            if (isBlocked) {
+                return (
+                    <div class="flex flex-col items-center justify-center h-screen bg-gray-100 text-center p-5">
+                        <h1 class="text-3xl font-bold text-red-600">Access Denied!</h1>
+                        <p class="mt-2 text-gray-600">Your account has been blocked by SJS Administration.</p>
+                    </div>
+                );
+            }
+
+            return (
+                <div class="min-h-screen bg-gray-50 font-sans">
+                    {view === 'landing' && (
+                        <div class="p-10 text-center bg-blue-900 text-white rounded-b-3xl shadow-lg">
+                            <h1 class="text-4xl font-bold">SJS UNIQUE</h1>
+                            <p class="opacity-80 mt-2">Premium Home Salon Services</p>
+                            <div class="mt-10 space-y-4 text-black">
+                                <button onClick={() => setView('customer')} class="w-full bg-white p-4 rounded-xl font-bold shadow-md">Customer Portal</button>
+                                <button onClick={() => setView('partner')} class="w-full bg-blue-200 p-4 rounded-xl font-bold shadow-md">Partner Portal</button>
+                            </div>
+                            <p onClick={() => {
+                                const pin = prompt("Enter Master PIN:");
+                                if (pin === "7860") setView('owner');
+                                else alert("Wrong PIN!");
+                            }} class="mt-10 text-xs opacity-50 cursor-pointer text-white">Admin Login</p>
+                        </div>
+                    )}
+
+                    {view === 'customer' && (
+                        <div class="p-5">
+                            <button onClick={() => setView('landing')} class="mb-5 text-blue-600 underline">← Back</button>
+                            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+                                <h2 class="text-xl font-bold mb-4">Rate Your Service</h2>
+                                <div class="text-yellow-400 text-3xl mb-4">★★★★☆</div>
+                                <button class="w-full bg-green-500 text-white p-3 rounded-lg font-bold">Submit Review</button>
+                            </div>
+                        </div>
+                    )}
+
+                    {view === 'partner' && (
+                        <div class="p-5 text-center">
+                            <button onClick={() => setView('landing')} class="mb-5 text-blue-600 block underline text-left">← Back</button>
+                            <div class="bg-white p-10 rounded-2xl shadow-md border-t-4 border-green-500">
+                                <h3 class="text-gray-500 uppercase text-sm font-bold tracking-widest">Monthly Earnings</h3>
+                                <h2 class="text-4xl font-bold text-green-600 mt-2">₹19,250</h2>
+                                <p class="mt-4 text-yellow-500 font-bold text-lg leading-none">Rating: 4.8 ★</p>
+                            </div>
+                        </div>
+                    )}
+
+                    {view === 'owner' && (
+                        <div class="p-5">
+                            <button onClick={() => setView('landing')} class="mb-5 text-red-500 underline">Logout</button>
+                            <h2 class="text-2xl font-bold text-blue-900 mb-5">Owner Control</h2>
+                            <div class="bg-white p-5 rounded-xl shadow-sm border mb-4 flex justify-between items-center">
+                                <div>
+                                    <p class="font-bold">User: Amit</p>
+                                    <p class="text-sm text-gray-500 italic leading-none">Status: Active</p>
+                                </div>
+                                <button onClick={() => setIsBlocked(true)} class="bg-red-500 text-white px-4 py-2 rounded-lg text-sm">Block</button>
+                            </div>
+                        </div>
+                    )}
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<SJSSalonApp />);
+    </script>
+</body>
+</html>
