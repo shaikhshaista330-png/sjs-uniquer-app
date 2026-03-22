@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SJS Partner - Service Provider</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .earning-card { background: linear-gradient(135deg, #4F46E5, #9333EA); }
+        .glass { background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(5px); }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState } = React;
+
+        function PartnerApp() {
+            const [isRegistered, setIsRegistered] = useState(false);
+            const [view, setView] = useState('home'); // home, earnings, jobs
+
+            // 1. Registration Handler
+            const handleRegister = (e) => {
+                e.preventDefault();
+                alert("Documents Uploaded! Admin will verify soon.");
+                setIsRegistered(true);
+            };
+
+            if (!isRegistered) {
+                return (
+                    <div class="p-6 max-w-md mx-auto">
+                        <h1 class="text-2xl font-black text-purple-700 mb-6 uppercase">Partner Registration</h1>
+                        <form onSubmit={handleRegister} class="space-y-4">
+                            <div class="p-4 bg-white rounded-2xl shadow">
+                                <p class="text-xs font-bold text-gray-400 mb-2">SELFIE WITH ID CARD</p>
+                                <input type="file" accept="image/*" capture="user" class="text-xs" required />
+                            </div>
+                            <div class="p-4 bg-white rounded-2xl shadow">
+                                <p class="text-xs font-bold text-gray-400 mb-2">AADHAR CARD (FRONT & BACK)</p>
+                                <input type="file" multiple class="text-xs" required />
+                            </div>
+                            <div class="p-4 bg-white rounded-2xl shadow">
+                                <p class="text-xs font-bold text-gray-400 mb-2">PAN CARD</p>
+                                <input type="file" class="text-xs" required />
+                            </div>
+                            <button class="w-full bg-purple-700 text-white p-4 rounded-2xl font-bold">Apply as Partner</button>
+                        </form>
+                    </div>
+                );
+            }
+
+            return (
+                <div class="pb-20">
+                    {/* Partner Header */}
+                    <div class="earning-card p-8 rounded-b-[40px] text-white shadow-xl">
+                        <div class="flex justify-between items-start mb-6">
+                            <div>
+                                <p class="opacity-80">Welcome back,</p>
+                                <h2 class="text-2xl font-bold">Arif Professional</h2>
+                            </div>
+                            <div class="bg-green-400 h-3 w-3 rounded-full border-2 border-white animate-pulse"></div>
+                        </div>
+                        <p class="text-xs opacity-80 mb-1">Monthly Earnings</p>
+                        <h3 class="text-4xl font-black">₹48,500.00</h3>
+                    </div>
+
+                    {/* Jobs Section */}
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-4">
+                            <h4 class="font-bold text-gray-800">New Booking Alerts</h4>
+                            <span class="text-blue-600 text-xs font-bold">Ringtone On <i class="fas fa-volume-up"></i></span>
+                        </div>
+                        
+                        {/* Booking Card */}
+                        <div class="bg-white p-5 rounded-3xl shadow-lg border-l-8 border-yellow-400 mb-4">
+                            <div class="flex justify-between items-center mb-3">
+                                <p class="text-xs text-gray-400 font-bold">ID: #SJ992</p>
+                                <p class="bg-yellow-100 text-yellow-700 text-[10px] px-2 py-1 rounded font-bold uppercase">Pending</p>
+                            </div>
+                            <h5 class="font-bold text-lg">Full Body Massage</h5>
+                            <p class="text-sm text-gray-600 mb-4"><i class="fas fa-map-marker-alt text-red-500 mr-1"></i> Mira Road, Sector 5</p>
+                            
+                            <div class="flex gap-2">
+                                <button class="flex-1 bg-purple-700 text-white py-3 rounded-xl font-bold text-sm">Accept Job</button>
+                                <button class="w-14 border border-red-500 text-red-500 rounded-xl flex items-center justify-center">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Earning Graph Representation */}
+                    <div class="p-6 bg-white mx-6 rounded-3xl shadow-inner">
+                        <h4 class="font-bold mb-4 text-xs uppercase tracking-widest text-gray-400">Yearly Growth</h4>
+                        <div class="flex items-end justify-between h-32 gap-2">
+                            <div class="bg-purple-200 w-full h-1/2 rounded-t-md"></div>
+                            <div class="bg-purple-300 w-full h-3/4 rounded-t-md"></div>
+                            <div class="bg-purple-500 w-full h-1/3 rounded-t-md"></div>
+                            <div class="bg-purple-700 w-full h-[90%] rounded-t-md"></div>
+                        </div>
+                        <div class="flex justify-between text-[8px] text-gray-400 mt-2 uppercase font-bold">
+                            <span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span>
+                        </div>
+                    </div>
+
+                    {/* Bottom Nav */}
+                    <nav class="fixed bottom-0 w-full bg-white border-t p-4 flex justify-around items-center rounded-t-3xl shadow-2xl">
+                        <i class="fas fa-home text-purple-700 text-xl"></i>
+                        <i class="fas fa-chart-line text-gray-400 text-xl"></i>
+                        <i class="fas fa-wallet text-gray-400 text-xl"></i>
+                        <i class="fas fa-user-circle text-gray-400 text-xl"></i>
+                    </nav>
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<PartnerApp />);
+    </script>
+</body>
+</html>
